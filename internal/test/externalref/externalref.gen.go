@@ -4,8 +4,8 @@
 package externalref
 
 import (
-	externalRef0 "github.com/deepmap/oapi-codegen/internal/test/externalref/packageA"
-	externalRef1 "github.com/deepmap/oapi-codegen/internal/test/externalref/packageB"
+	externalRef0 "github.com/deansotnikov/oapi-codegen/internal/test/externalref/packageA"
+	externalRef1 "github.com/deansotnikov/oapi-codegen/internal/test/externalref/packageB"
 )
 
 // Container defines model for Container.

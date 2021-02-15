@@ -5,5 +5,5 @@ generate:
   - types
   - skip-prune
 import-mapping:
-  ./packageA/spec.yaml: github.com/deepmap/oapi-codegen/internal/test/externalref/packageA
-  ./packageB/spec.yaml: github.com/deepmap/oapi-codegen/internal/test/externalref/packageB
+  ./packageA/spec.yaml: github.com/deansotnikov/oapi-codegen/internal/test/externalref/packageA
+  ./packageB/spec.yaml: github.com/deansotnikov/oapi-codegen/internal/test/externalref/packageB

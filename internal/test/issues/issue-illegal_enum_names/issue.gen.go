@@ -194,17 +194,17 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 	// GetFoo request
-	GetFooWithResponse(ctx context.Context) (*GetFooResponse, error)
+	GetFooWithResponse(ctx context.Context) (*GetFooClientResponse, error)
 }
 
-type GetFooResponse struct {
+type GetFooClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *[]Bar
 }
 
 // Status returns HTTPResponse.Status
-func (r GetFooResponse) Status() string {
+func (r GetFooClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -212,7 +212,7 @@ func (r GetFooResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetFooResponse) StatusCode() int {
+func (r GetFooClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -220,23 +220,23 @@ func (r GetFooResponse) StatusCode() int {
 }
 
 // GetFooWithResponse request returning *GetFooResponse
-func (c *ClientWithResponses) GetFooWithResponse(ctx context.Context) (*GetFooResponse, error) {
+func (c *ClientWithResponses) GetFooWithResponse(ctx context.Context) (*GetFooClientResponse, error) {
 	rsp, err := c.GetFoo(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetFooResponse(rsp)
+	return ParseGetFooClientResponse(rsp)
 }
 
-// ParseGetFooResponse parses an HTTP response from a GetFooWithResponse call
-func ParseGetFooResponse(rsp *http.Response) (*GetFooResponse, error) {
+// ParseGetFooClientResponse parses an HTTP response from a GetFooWithResponse call
+func ParseGetFooClientResponse(rsp *http.Response) (*GetFooClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetFooResponse{
+	response := &GetFooClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

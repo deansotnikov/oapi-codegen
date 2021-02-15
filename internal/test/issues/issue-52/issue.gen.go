@@ -252,17 +252,17 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 	// ExampleGet request
-	ExampleGetWithResponse(ctx context.Context) (*ExampleGetResponse, error)
+	ExampleGetWithResponse(ctx context.Context) (*ExampleGetClientResponse, error)
 }
 
-type ExampleGetResponse struct {
+type ExampleGetClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *Document
 }
 
 // Status returns HTTPResponse.Status
-func (r ExampleGetResponse) Status() string {
+func (r ExampleGetClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -270,7 +270,7 @@ func (r ExampleGetResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r ExampleGetResponse) StatusCode() int {
+func (r ExampleGetClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -278,23 +278,23 @@ func (r ExampleGetResponse) StatusCode() int {
 }
 
 // ExampleGetWithResponse request returning *ExampleGetResponse
-func (c *ClientWithResponses) ExampleGetWithResponse(ctx context.Context) (*ExampleGetResponse, error) {
+func (c *ClientWithResponses) ExampleGetWithResponse(ctx context.Context) (*ExampleGetClientResponse, error) {
 	rsp, err := c.ExampleGet(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseExampleGetResponse(rsp)
+	return ParseExampleGetClientResponse(rsp)
 }
 
-// ParseExampleGetResponse parses an HTTP response from a ExampleGetWithResponse call
-func ParseExampleGetResponse(rsp *http.Response) (*ExampleGetResponse, error) {
+// ParseExampleGetClientResponse parses an HTTP response from a ExampleGetWithResponse call
+func ParseExampleGetClientResponse(rsp *http.Response) (*ExampleGetClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &ExampleGetResponse{
+	response := &ExampleGetClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

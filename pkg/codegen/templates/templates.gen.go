@@ -349,7 +349,7 @@ type ClientWithResponsesInterface interface {
 }
 
 {{range .}}{{$opid := .OperationId}}{{$op := .}}
-type {{$opid | ucFirst}}Response struct {
+type {{genResponseTypeName $opid}} struct {
     Body         []byte
 	HTTPResponse *http.Response
     {{- range getResponseTypeDefinitions .}}
@@ -358,7 +358,7 @@ type {{$opid | ucFirst}}Response struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r {{$opid | ucFirst}}Response) Status() string {
+func (r {{genResponseTypeName $opid}}) Status() string {
     if r.HTTPResponse != nil {
         return r.HTTPResponse.Status
     }
@@ -366,7 +366,7 @@ func (r {{$opid | ucFirst}}Response) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r {{$opid | ucFirst}}Response) StatusCode() int {
+func (r {{genResponseTypeName $opid}}) StatusCode() int {
     if r.HTTPResponse != nil {
         return r.HTTPResponse.StatusCode
     }
@@ -736,8 +736,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/deepmap/oapi-codegen/pkg/runtime"
-	openapi_types "github.com/deepmap/oapi-codegen/pkg/types"
+	"github.com/deansotnikov/oapi-codegen/pkg/runtime"
+	openapi_types "github.com/deansotnikov/oapi-codegen/pkg/types"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/go-chi/chi"
 	"github.com/labstack/echo/v4"
@@ -998,4 +998,3 @@ func Parse(t *template.Template) (*template.Template, error) {
 	}
 	return t, nil
 }
-

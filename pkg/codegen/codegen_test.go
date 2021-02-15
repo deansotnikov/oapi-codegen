@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"testing"
 
-	examplePetstoreClient "github.com/deepmap/oapi-codegen/examples/petstore-expanded"
-	examplePetstore "github.com/deepmap/oapi-codegen/examples/petstore-expanded/echo/api"
+	examplePetstoreClient "github.com/deansotnikov/oapi-codegen/examples/petstore-expanded"
+	examplePetstore "github.com/deansotnikov/oapi-codegen/examples/petstore-expanded/echo/api"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/golangci/lint-1"
 	"github.com/stretchr/testify/assert"
@@ -101,7 +101,7 @@ func TestExamplePetStoreParseFunction(t *testing.T) {
 	}
 	cannedResponse.Header.Add("Content-type", "application/json")
 
-	findPetByIDResponse, err := examplePetstoreClient.ParseFindPetByIdResponse(cannedResponse)
+	findPetByIDResponse, err := examplePetstoreClient.ParseFindPetByIdClientResponse(cannedResponse)
 	assert.NoError(t, err)
 	assert.NotNil(t, findPetByIDResponse.JSON200)
 	assert.Equal(t, int64(5), findPetByIDResponse.JSON200.Id)
@@ -138,12 +138,12 @@ func TestExampleOpenAPICodeGeneration(t *testing.T) {
 	assert.Contains(t, code, "package testswagger")
 
 	// Check that response structs are generated correctly:
-	assert.Contains(t, code, "type GetTestByNameResponse struct {")
+	assert.Contains(t, code, "type GetTestByNameClientResponse struct {")
 
 	// Check that response structs contains fallbacks to interface for invalid types:
 	// Here an invalid array with no items.
 	assert.Contains(t, code, `
-type GetTestByNameResponse struct {
+type GetTestByNameClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *[]Test
@@ -154,15 +154,15 @@ type GetTestByNameResponse struct {
 }`)
 
 	// Check that the helper methods are generated correctly:
-	assert.Contains(t, code, "func (r GetTestByNameResponse) Status() string {")
-	assert.Contains(t, code, "func (r GetTestByNameResponse) StatusCode() int {")
-	assert.Contains(t, code, "func ParseGetTestByNameResponse(rsp *http.Response) (*GetTestByNameResponse, error) {")
+	assert.Contains(t, code, "func (r GetTestByNameClientResponse) Status() string {")
+	assert.Contains(t, code, "func (r GetTestByNameClientResponse) StatusCode() int {")
+	assert.Contains(t, code, "func ParseGetTestByNameClientResponse(rsp *http.Response) (*GetTestByNameClientResponse, error) {")
 
 	// Check the client method signatures:
-	assert.Contains(t, code, "type GetTestByNameParams struct {")
+	assert.Contains(t, code, "type GetTestByNameClientResponse struct {")
 	assert.Contains(t, code, "Top *int `json:\"$top,omitempty\"`")
 	assert.Contains(t, code, "func (c *Client) GetTestByName(ctx context.Context, name string, params *GetTestByNameParams, reqEditors ...RequestEditorFn) (*http.Response, error) {")
-	assert.Contains(t, code, "func (c *ClientWithResponses) GetTestByNameWithResponse(ctx context.Context, name string, params *GetTestByNameParams) (*GetTestByNameResponse, error) {")
+	assert.Contains(t, code, "func (c *ClientWithResponses) GetTestByNameWithResponse(ctx context.Context, name string, params *GetTestByNameParams) (*GetTestByNameClientResponse, error) {")
 
 	// Make sure the generated code is valid:
 	linter := new(lint.Linter)

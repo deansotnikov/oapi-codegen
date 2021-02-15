@@ -502,38 +502,38 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 	// PostBoth request  with any body
-	PostBothWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostBothResponse, error)
+	PostBothWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostBothClientResponse, error)
 
-	PostBothWithResponse(ctx context.Context, body PostBothJSONRequestBody) (*PostBothResponse, error)
+	PostBothWithResponse(ctx context.Context, body PostBothJSONRequestBody) (*PostBothClientResponse, error)
 
 	// GetBoth request
-	GetBothWithResponse(ctx context.Context) (*GetBothResponse, error)
+	GetBothWithResponse(ctx context.Context) (*GetBothClientResponse, error)
 
 	// PostJson request  with any body
-	PostJsonWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostJsonResponse, error)
+	PostJsonWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostJsonClientResponse, error)
 
-	PostJsonWithResponse(ctx context.Context, body PostJsonJSONRequestBody) (*PostJsonResponse, error)
+	PostJsonWithResponse(ctx context.Context, body PostJsonJSONRequestBody) (*PostJsonClientResponse, error)
 
 	// GetJson request
-	GetJsonWithResponse(ctx context.Context) (*GetJsonResponse, error)
+	GetJsonWithResponse(ctx context.Context) (*GetJsonClientResponse, error)
 
 	// PostOther request  with any body
-	PostOtherWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostOtherResponse, error)
+	PostOtherWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostOtherClientResponse, error)
 
 	// GetOther request
-	GetOtherWithResponse(ctx context.Context) (*GetOtherResponse, error)
+	GetOtherWithResponse(ctx context.Context) (*GetOtherClientResponse, error)
 
 	// GetJsonWithTrailingSlash request
-	GetJsonWithTrailingSlashWithResponse(ctx context.Context) (*GetJsonWithTrailingSlashResponse, error)
+	GetJsonWithTrailingSlashWithResponse(ctx context.Context) (*GetJsonWithTrailingSlashClientResponse, error)
 }
 
-type PostBothResponse struct {
+type PostBothClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r PostBothResponse) Status() string {
+func (r PostBothClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -541,20 +541,20 @@ func (r PostBothResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r PostBothResponse) StatusCode() int {
+func (r PostBothClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type GetBothResponse struct {
+type GetBothClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r GetBothResponse) Status() string {
+func (r GetBothClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -562,20 +562,20 @@ func (r GetBothResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetBothResponse) StatusCode() int {
+func (r GetBothClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type PostJsonResponse struct {
+type PostJsonClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r PostJsonResponse) Status() string {
+func (r PostJsonClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -583,20 +583,20 @@ func (r PostJsonResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r PostJsonResponse) StatusCode() int {
+func (r PostJsonClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type GetJsonResponse struct {
+type GetJsonClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r GetJsonResponse) Status() string {
+func (r GetJsonClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -604,20 +604,20 @@ func (r GetJsonResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetJsonResponse) StatusCode() int {
+func (r GetJsonClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type PostOtherResponse struct {
+type PostOtherClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r PostOtherResponse) Status() string {
+func (r PostOtherClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -625,20 +625,20 @@ func (r PostOtherResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r PostOtherResponse) StatusCode() int {
+func (r PostOtherClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type GetOtherResponse struct {
+type GetOtherClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r GetOtherResponse) Status() string {
+func (r GetOtherClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -646,20 +646,20 @@ func (r GetOtherResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetOtherResponse) StatusCode() int {
+func (r GetOtherClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type GetJsonWithTrailingSlashResponse struct {
+type GetJsonWithTrailingSlashClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 }
 
 // Status returns HTTPResponse.Status
-func (r GetJsonWithTrailingSlashResponse) Status() string {
+func (r GetJsonWithTrailingSlashClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -667,7 +667,7 @@ func (r GetJsonWithTrailingSlashResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetJsonWithTrailingSlashResponse) StatusCode() int {
+func (r GetJsonWithTrailingSlashClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -675,93 +675,93 @@ func (r GetJsonWithTrailingSlashResponse) StatusCode() int {
 }
 
 // PostBothWithBodyWithResponse request with arbitrary body returning *PostBothResponse
-func (c *ClientWithResponses) PostBothWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostBothResponse, error) {
+func (c *ClientWithResponses) PostBothWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostBothClientResponse, error) {
 	rsp, err := c.PostBothWithBody(ctx, contentType, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostBothResponse(rsp)
+	return ParsePostBothClientResponse(rsp)
 }
 
-func (c *ClientWithResponses) PostBothWithResponse(ctx context.Context, body PostBothJSONRequestBody) (*PostBothResponse, error) {
+func (c *ClientWithResponses) PostBothWithResponse(ctx context.Context, body PostBothJSONRequestBody) (*PostBothClientResponse, error) {
 	rsp, err := c.PostBoth(ctx, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostBothResponse(rsp)
+	return ParsePostBothClientResponse(rsp)
 }
 
 // GetBothWithResponse request returning *GetBothResponse
-func (c *ClientWithResponses) GetBothWithResponse(ctx context.Context) (*GetBothResponse, error) {
+func (c *ClientWithResponses) GetBothWithResponse(ctx context.Context) (*GetBothClientResponse, error) {
 	rsp, err := c.GetBoth(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetBothResponse(rsp)
+	return ParseGetBothClientResponse(rsp)
 }
 
 // PostJsonWithBodyWithResponse request with arbitrary body returning *PostJsonResponse
-func (c *ClientWithResponses) PostJsonWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostJsonResponse, error) {
+func (c *ClientWithResponses) PostJsonWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostJsonClientResponse, error) {
 	rsp, err := c.PostJsonWithBody(ctx, contentType, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostJsonResponse(rsp)
+	return ParsePostJsonClientResponse(rsp)
 }
 
-func (c *ClientWithResponses) PostJsonWithResponse(ctx context.Context, body PostJsonJSONRequestBody) (*PostJsonResponse, error) {
+func (c *ClientWithResponses) PostJsonWithResponse(ctx context.Context, body PostJsonJSONRequestBody) (*PostJsonClientResponse, error) {
 	rsp, err := c.PostJson(ctx, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostJsonResponse(rsp)
+	return ParsePostJsonClientResponse(rsp)
 }
 
 // GetJsonWithResponse request returning *GetJsonResponse
-func (c *ClientWithResponses) GetJsonWithResponse(ctx context.Context) (*GetJsonResponse, error) {
+func (c *ClientWithResponses) GetJsonWithResponse(ctx context.Context) (*GetJsonClientResponse, error) {
 	rsp, err := c.GetJson(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetJsonResponse(rsp)
+	return ParseGetJsonClientResponse(rsp)
 }
 
 // PostOtherWithBodyWithResponse request with arbitrary body returning *PostOtherResponse
-func (c *ClientWithResponses) PostOtherWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostOtherResponse, error) {
+func (c *ClientWithResponses) PostOtherWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*PostOtherClientResponse, error) {
 	rsp, err := c.PostOtherWithBody(ctx, contentType, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostOtherResponse(rsp)
+	return ParsePostOtherClientResponse(rsp)
 }
 
 // GetOtherWithResponse request returning *GetOtherResponse
-func (c *ClientWithResponses) GetOtherWithResponse(ctx context.Context) (*GetOtherResponse, error) {
+func (c *ClientWithResponses) GetOtherWithResponse(ctx context.Context) (*GetOtherClientResponse, error) {
 	rsp, err := c.GetOther(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetOtherResponse(rsp)
+	return ParseGetOtherClientResponse(rsp)
 }
 
 // GetJsonWithTrailingSlashWithResponse request returning *GetJsonWithTrailingSlashResponse
-func (c *ClientWithResponses) GetJsonWithTrailingSlashWithResponse(ctx context.Context) (*GetJsonWithTrailingSlashResponse, error) {
+func (c *ClientWithResponses) GetJsonWithTrailingSlashWithResponse(ctx context.Context) (*GetJsonWithTrailingSlashClientResponse, error) {
 	rsp, err := c.GetJsonWithTrailingSlash(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetJsonWithTrailingSlashResponse(rsp)
+	return ParseGetJsonWithTrailingSlashClientResponse(rsp)
 }
 
-// ParsePostBothResponse parses an HTTP response from a PostBothWithResponse call
-func ParsePostBothResponse(rsp *http.Response) (*PostBothResponse, error) {
+// ParsePostBothClientResponse parses an HTTP response from a PostBothWithResponse call
+func ParsePostBothClientResponse(rsp *http.Response) (*PostBothClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PostBothResponse{
+	response := &PostBothClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -772,15 +772,15 @@ func ParsePostBothResponse(rsp *http.Response) (*PostBothResponse, error) {
 	return response, nil
 }
 
-// ParseGetBothResponse parses an HTTP response from a GetBothWithResponse call
-func ParseGetBothResponse(rsp *http.Response) (*GetBothResponse, error) {
+// ParseGetBothClientResponse parses an HTTP response from a GetBothWithResponse call
+func ParseGetBothClientResponse(rsp *http.Response) (*GetBothClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetBothResponse{
+	response := &GetBothClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -791,15 +791,15 @@ func ParseGetBothResponse(rsp *http.Response) (*GetBothResponse, error) {
 	return response, nil
 }
 
-// ParsePostJsonResponse parses an HTTP response from a PostJsonWithResponse call
-func ParsePostJsonResponse(rsp *http.Response) (*PostJsonResponse, error) {
+// ParsePostJsonClientResponse parses an HTTP response from a PostJsonWithResponse call
+func ParsePostJsonClientResponse(rsp *http.Response) (*PostJsonClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PostJsonResponse{
+	response := &PostJsonClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -810,15 +810,15 @@ func ParsePostJsonResponse(rsp *http.Response) (*PostJsonResponse, error) {
 	return response, nil
 }
 
-// ParseGetJsonResponse parses an HTTP response from a GetJsonWithResponse call
-func ParseGetJsonResponse(rsp *http.Response) (*GetJsonResponse, error) {
+// ParseGetJsonClientResponse parses an HTTP response from a GetJsonWithResponse call
+func ParseGetJsonClientResponse(rsp *http.Response) (*GetJsonClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetJsonResponse{
+	response := &GetJsonClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -829,15 +829,15 @@ func ParseGetJsonResponse(rsp *http.Response) (*GetJsonResponse, error) {
 	return response, nil
 }
 
-// ParsePostOtherResponse parses an HTTP response from a PostOtherWithResponse call
-func ParsePostOtherResponse(rsp *http.Response) (*PostOtherResponse, error) {
+// ParsePostOtherClientResponse parses an HTTP response from a PostOtherWithResponse call
+func ParsePostOtherClientResponse(rsp *http.Response) (*PostOtherClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PostOtherResponse{
+	response := &PostOtherClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -848,15 +848,15 @@ func ParsePostOtherResponse(rsp *http.Response) (*PostOtherResponse, error) {
 	return response, nil
 }
 
-// ParseGetOtherResponse parses an HTTP response from a GetOtherWithResponse call
-func ParseGetOtherResponse(rsp *http.Response) (*GetOtherResponse, error) {
+// ParseGetOtherClientResponse parses an HTTP response from a GetOtherWithResponse call
+func ParseGetOtherClientResponse(rsp *http.Response) (*GetOtherClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetOtherResponse{
+	response := &GetOtherClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -867,15 +867,15 @@ func ParseGetOtherResponse(rsp *http.Response) (*GetOtherResponse, error) {
 	return response, nil
 }
 
-// ParseGetJsonWithTrailingSlashResponse parses an HTTP response from a GetJsonWithTrailingSlashWithResponse call
-func ParseGetJsonWithTrailingSlashResponse(rsp *http.Response) (*GetJsonWithTrailingSlashResponse, error) {
+// ParseGetJsonWithTrailingSlashClientResponse parses an HTTP response from a GetJsonWithTrailingSlashWithResponse call
+func ParseGetJsonWithTrailingSlashClientResponse(rsp *http.Response) (*GetJsonWithTrailingSlashClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetJsonWithTrailingSlashResponse{
+	response := &GetJsonWithTrailingSlashClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

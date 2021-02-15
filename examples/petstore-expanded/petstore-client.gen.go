@@ -14,7 +14,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/deepmap/oapi-codegen/pkg/runtime"
+	"github.com/deansotnikov/oapi-codegen/pkg/runtime"
 )
 
 // Error defines model for Error.
@@ -422,21 +422,21 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 	// FindPets request
-	FindPetsWithResponse(ctx context.Context, params *FindPetsParams) (*FindPetsResponse, error)
+	FindPetsWithResponse(ctx context.Context, params *FindPetsParams) (*FindPetsClientResponse, error)
 
 	// AddPet request  with any body
-	AddPetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*AddPetResponse, error)
+	AddPetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*AddPetClientResponse, error)
 
-	AddPetWithResponse(ctx context.Context, body AddPetJSONRequestBody) (*AddPetResponse, error)
+	AddPetWithResponse(ctx context.Context, body AddPetJSONRequestBody) (*AddPetClientResponse, error)
 
 	// DeletePet request
-	DeletePetWithResponse(ctx context.Context, id int64) (*DeletePetResponse, error)
+	DeletePetWithResponse(ctx context.Context, id int64) (*DeletePetClientResponse, error)
 
 	// FindPetById request
-	FindPetByIdWithResponse(ctx context.Context, id int64) (*FindPetByIdResponse, error)
+	FindPetByIdWithResponse(ctx context.Context, id int64) (*FindPetByIdClientResponse, error)
 }
 
-type FindPetsResponse struct {
+type FindPetsClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *[]Pet
@@ -444,7 +444,7 @@ type FindPetsResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r FindPetsResponse) Status() string {
+func (r FindPetsClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -452,14 +452,14 @@ func (r FindPetsResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r FindPetsResponse) StatusCode() int {
+func (r FindPetsClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type AddPetResponse struct {
+type AddPetClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *Pet
@@ -467,7 +467,7 @@ type AddPetResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r AddPetResponse) Status() string {
+func (r AddPetClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -475,21 +475,21 @@ func (r AddPetResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r AddPetResponse) StatusCode() int {
+func (r AddPetClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type DeletePetResponse struct {
+type DeletePetClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSONDefault  *Error
 }
 
 // Status returns HTTPResponse.Status
-func (r DeletePetResponse) Status() string {
+func (r DeletePetClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -497,14 +497,14 @@ func (r DeletePetResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r DeletePetResponse) StatusCode() int {
+func (r DeletePetClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type FindPetByIdResponse struct {
+type FindPetByIdClientResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *Pet
@@ -512,7 +512,7 @@ type FindPetByIdResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r FindPetByIdResponse) Status() string {
+func (r FindPetByIdClientResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -520,7 +520,7 @@ func (r FindPetByIdResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r FindPetByIdResponse) StatusCode() int {
+func (r FindPetByIdClientResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -528,58 +528,58 @@ func (r FindPetByIdResponse) StatusCode() int {
 }
 
 // FindPetsWithResponse request returning *FindPetsResponse
-func (c *ClientWithResponses) FindPetsWithResponse(ctx context.Context, params *FindPetsParams) (*FindPetsResponse, error) {
+func (c *ClientWithResponses) FindPetsWithResponse(ctx context.Context, params *FindPetsParams) (*FindPetsClientResponse, error) {
 	rsp, err := c.FindPets(ctx, params)
 	if err != nil {
 		return nil, err
 	}
-	return ParseFindPetsResponse(rsp)
+	return ParseFindPetsClientResponse(rsp)
 }
 
 // AddPetWithBodyWithResponse request with arbitrary body returning *AddPetResponse
-func (c *ClientWithResponses) AddPetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*AddPetResponse, error) {
+func (c *ClientWithResponses) AddPetWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader) (*AddPetClientResponse, error) {
 	rsp, err := c.AddPetWithBody(ctx, contentType, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParseAddPetResponse(rsp)
+	return ParseAddPetClientResponse(rsp)
 }
 
-func (c *ClientWithResponses) AddPetWithResponse(ctx context.Context, body AddPetJSONRequestBody) (*AddPetResponse, error) {
+func (c *ClientWithResponses) AddPetWithResponse(ctx context.Context, body AddPetJSONRequestBody) (*AddPetClientResponse, error) {
 	rsp, err := c.AddPet(ctx, body)
 	if err != nil {
 		return nil, err
 	}
-	return ParseAddPetResponse(rsp)
+	return ParseAddPetClientResponse(rsp)
 }
 
 // DeletePetWithResponse request returning *DeletePetResponse
-func (c *ClientWithResponses) DeletePetWithResponse(ctx context.Context, id int64) (*DeletePetResponse, error) {
+func (c *ClientWithResponses) DeletePetWithResponse(ctx context.Context, id int64) (*DeletePetClientResponse, error) {
 	rsp, err := c.DeletePet(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-	return ParseDeletePetResponse(rsp)
+	return ParseDeletePetClientResponse(rsp)
 }
 
 // FindPetByIdWithResponse request returning *FindPetByIdResponse
-func (c *ClientWithResponses) FindPetByIdWithResponse(ctx context.Context, id int64) (*FindPetByIdResponse, error) {
+func (c *ClientWithResponses) FindPetByIdWithResponse(ctx context.Context, id int64) (*FindPetByIdClientResponse, error) {
 	rsp, err := c.FindPetById(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-	return ParseFindPetByIdResponse(rsp)
+	return ParseFindPetByIdClientResponse(rsp)
 }
 
-// ParseFindPetsResponse parses an HTTP response from a FindPetsWithResponse call
-func ParseFindPetsResponse(rsp *http.Response) (*FindPetsResponse, error) {
+// ParseFindPetsClientResponse parses an HTTP response from a FindPetsWithResponse call
+func ParseFindPetsClientResponse(rsp *http.Response) (*FindPetsClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &FindPetsResponse{
+	response := &FindPetsClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -604,15 +604,15 @@ func ParseFindPetsResponse(rsp *http.Response) (*FindPetsResponse, error) {
 	return response, nil
 }
 
-// ParseAddPetResponse parses an HTTP response from a AddPetWithResponse call
-func ParseAddPetResponse(rsp *http.Response) (*AddPetResponse, error) {
+// ParseAddPetClientResponse parses an HTTP response from a AddPetWithResponse call
+func ParseAddPetClientResponse(rsp *http.Response) (*AddPetClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &AddPetResponse{
+	response := &AddPetClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -637,15 +637,15 @@ func ParseAddPetResponse(rsp *http.Response) (*AddPetResponse, error) {
 	return response, nil
 }
 
-// ParseDeletePetResponse parses an HTTP response from a DeletePetWithResponse call
-func ParseDeletePetResponse(rsp *http.Response) (*DeletePetResponse, error) {
+// ParseDeletePetClientResponse parses an HTTP response from a DeletePetWithResponse call
+func ParseDeletePetClientResponse(rsp *http.Response) (*DeletePetClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &DeletePetResponse{
+	response := &DeletePetClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -663,15 +663,15 @@ func ParseDeletePetResponse(rsp *http.Response) (*DeletePetResponse, error) {
 	return response, nil
 }
 
-// ParseFindPetByIdResponse parses an HTTP response from a FindPetByIdWithResponse call
-func ParseFindPetByIdResponse(rsp *http.Response) (*FindPetByIdResponse, error) {
+// ParseFindPetByIdClientResponse parses an HTTP response from a FindPetByIdWithResponse call
+func ParseFindPetByIdClientResponse(rsp *http.Response) (*FindPetByIdClientResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &FindPetByIdResponse{
+	response := &FindPetByIdClientResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
